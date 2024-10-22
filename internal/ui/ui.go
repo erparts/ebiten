@@ -17,6 +17,7 @@ package ui
 import (
 	"errors"
 	"image"
+	"os"
 	"sync"
 	"sync/atomic"
 
@@ -92,6 +93,10 @@ var (
 )
 
 func init() {
+	if os.Getenv("DISPLAY") == "" {
+		return
+	}
+
 	// newUserInterface() must be called in the main goroutine.
 	u, err := newUserInterface()
 	if err != nil {
